@@ -1,7 +1,7 @@
 
 name: swlabels_example
-description: Example of working with the package [SWLabels](https://pub.dev/packages/swlabels)
-version: 1.0.4
+description: Example of working with the package SWLabels
+version: 0.0.2
 homepage: https://www.blogger.com/blog/posts/4498221098999236379
 repository: https://github.com/iLnaar/swlabels_example
 issue_tracker: https://github.com/iLnaar/swlabels_example/issues
