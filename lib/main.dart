@@ -17,9 +17,6 @@ class MyApp extends StatelessWidget {
 }
 
 class Demo extends StatefulWidget {
-  sw.SpriteWidget spriteWidget;
-  ScreenNode screenNode;
-  Orientation ori;
 
   Demo({Key key}) : super(key: key);
 
@@ -28,6 +25,10 @@ class Demo extends StatefulWidget {
 }
 
 class _DemoState extends State<Demo> {
+  sw.SpriteWidget spriteWidget;
+  ScreenNode screenNode;
+  Orientation ori;
+
   @override
   void initState() {
     super.initState();
@@ -36,22 +37,22 @@ class _DemoState extends State<Demo> {
   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(builder: (_, orientation) {
-      if (widget.ori == null || orientation != widget.ori) {
-        widget.ori = orientation;
+      if (orientation != ori) {
+        ori = orientation;
         final Size screenSize = orientation == Orientation.landscape
             ? const Size(720, 400)
             : const Size(400, 720);
-        if (widget.screenNode != null) {
-          widget.screenNode.delete();
+        if (screenNode != null) {
+          screenNode.delete();
         }
-        widget.screenNode = ScreenNode(screenSize, orientation);
-        widget.spriteWidget = sw.SpriteWidget(
-            widget.screenNode, sw.SpriteBoxTransformMode.scaleToFit);
+        screenNode = ScreenNode(screenSize, orientation);
+        spriteWidget = sw.SpriteWidget(
+            screenNode, sw.SpriteBoxTransformMode.scaleToFit);
       }
       return Column(
         children: <Widget>[
           //Card(child: Text('SWLabels example'),),
-          Expanded(child: widget.spriteWidget),
+          Expanded(child: spriteWidget),
           //Card(child: Text('$orientation'))
         ],
       );
