@@ -11,19 +11,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Game(),
+      home: Demo(),
     );
   }
 }
 
-class Game extends StatefulWidget {
-  Game({Key key}) : super(key: key);
+class Demo extends StatefulWidget {
+  sw.SpriteWidget spriteWidget;
+  ScreenNode screenNode;
+  Orientation ori;
+
+  Demo({Key key}) : super(key: key);
 
   @override
-  _GameState createState() => _GameState();
+  _DemoState createState() => _DemoState();
 }
 
-class _GameState extends State<Game> {
+class _DemoState extends State<Demo> {
 
   @override
   void initState() {
@@ -33,16 +37,31 @@ class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     return OrientationBuilder(builder: (_, orientation) {
-      final screen = orientation == Orientation.landscape ?
-        sw.SpriteWidget(ScreenNode(const Size(720, 400)), sw.SpriteBoxTransformMode.scaleToFit):
-        sw.SpriteWidget(ScreenNode(const Size(400, 720)), sw.SpriteBoxTransformMode.scaleToFit);
+      if (widget.ori == null || orientation != widget.ori) {
+        widget.ori = orientation;
+        final Size screenSize = orientation == Orientation.landscape ?
+            const Size(720, 400) :
+            const Size(400, 720);
+        if (widget.screenNode != null) {
+          widget.screenNode.delete();
+        }
+        widget.screenNode = ScreenNode(screenSize, orientation);
+        widget.spriteWidget = sw.SpriteWidget(
+            widget.screenNode,
+            sw.SpriteBoxTransformMode.scaleToFit);
+      }
       return Column(
         children: <Widget>[
           //Card(child: Text('SWLabels example'),),
-          Expanded(child: screen),
+          Expanded(child: widget.spriteWidget),
           //Card(child: Text('$orientation'))
         ],
       );
     });
+  }
+
+  @override
+  void didUpdateWidget(Widget oldWidget) {
+    super.didUpdateWidget(oldWidget);
   }
 }

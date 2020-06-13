@@ -12,26 +12,27 @@ class ScreenNode extends sw.NodeWithSize {
   SWLabels swlTerminal;
   final balls = List<Ball>();
   final rand = math.Random();
+  mat.Orientation screenOrientation;
 
-  ScreenNode(ui.Size size) : super(size) {
+  ScreenNode(ui.Size size, this.screenOrientation) : super(size) {
     /// Initializing three objects of SWLabels.
     ///
     /// The general status will be displayed in this object.
-    swlStatus = SWLabels(ui.Size(5, 1),
+    swlStatus = SWLabels(
         maxCount: 10,
         position: ui.Offset(10, 30),
         stepY: 16,
         title: 'Status :');
     addChild(swlStatus);
     /// The status of all balls will be displayed in this object.
-    swlBalls = SWLabels(size,
-        maxCount: 10,
-        position: ui.Offset(10, 150),
+    swlBalls = SWLabels(
+        maxCount: 15,
+        position: ui.Offset(10, 100),
         stepY: 16,
         title: 'Ball positions :');
     addChild(swlBalls);
     /// And this object will be used as a terminal with message scrolling.
-    swlTerminal = SWLabels(size,
+    swlTerminal = SWLabels(
         maxCount: 17,
         position: size.width > size.height ?
           ui.Offset(size.width - 200, 30):
@@ -39,14 +40,14 @@ class ScreenNode extends sw.NodeWithSize {
         stepY: 16,
         title: 'Terminal :');
     addChild(swlTerminal);
-    generateBalls(10);
+    generateBalls(15);
   }
 
   void generateBalls(int count) {
     for (int i = 0; i < count; i++) {
       balls.add(Ball(
-        x: rand.nextDouble()*size.width,
-        y: rand.nextDouble()*size.height,
+        x: size.width/2,
+        y: size.height/2,
         radius: rand.nextDouble()*10 + 1,
         dx: rand.nextDouble()*300 - 150,
         dy: rand.nextDouble()*300 - 150,
@@ -59,6 +60,8 @@ class ScreenNode extends sw.NodeWithSize {
   void update(double dt) {
     // Move balls and filling all SWLabel texts
     swlStatus.print('Ball count = ${balls.length}', 'count');
+    swlStatus.print('$screenOrientation', 'screenOrientation');
+
     for (int i = 0; i < balls.length; ) {
       final ball = balls[i];
       ball.x += (ball.dx * dt);
@@ -101,5 +104,11 @@ class ScreenNode extends sw.NodeWithSize {
     //super.paint(canvas);
     //final center = mat.Offset(circleCenter.dx + ballPos.x, circleCenter.dy + ballPos.y);
     //canvas.drawCircle(center, ballRadius, mat.Paint()..color = mat.Color.fromARGB(255, 255, 255, 255));
+  }
+
+  void delete() {
+    swlStatus.delete();
+    swlTerminal.delete();
+    swlBalls.delete();
   }
 }
