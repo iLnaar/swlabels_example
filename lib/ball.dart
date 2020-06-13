@@ -1,4 +1,3 @@
-
 import 'dart:ui' as ui show Color;
 
 class Ball {

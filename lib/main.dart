@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:spritewidget/spritewidget.dart' as sw show SpriteWidget, SpriteBoxTransformMode;
+import 'package:spritewidget/spritewidget.dart' as sw
+    show SpriteWidget, SpriteBoxTransformMode;
 import 'screen_node.dart';
 
 void main() async {
@@ -28,7 +28,6 @@ class Demo extends StatefulWidget {
 }
 
 class _DemoState extends State<Demo> {
-
   @override
   void initState() {
     super.initState();
@@ -39,16 +38,15 @@ class _DemoState extends State<Demo> {
     return OrientationBuilder(builder: (_, orientation) {
       if (widget.ori == null || orientation != widget.ori) {
         widget.ori = orientation;
-        final Size screenSize = orientation == Orientation.landscape ?
-            const Size(720, 400) :
-            const Size(400, 720);
+        final Size screenSize = orientation == Orientation.landscape
+            ? const Size(720, 400)
+            : const Size(400, 720);
         if (widget.screenNode != null) {
           widget.screenNode.delete();
         }
         widget.screenNode = ScreenNode(screenSize, orientation);
         widget.spriteWidget = sw.SpriteWidget(
-            widget.screenNode,
-            sw.SpriteBoxTransformMode.scaleToFit);
+            widget.screenNode, sw.SpriteBoxTransformMode.scaleToFit);
       }
       return Column(
         children: <Widget>[

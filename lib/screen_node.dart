@@ -1,4 +1,3 @@
-
 import 'package:spritewidget/spritewidget.dart' as sw;
 import 'dart:ui' as ui show Size, Offset, PaintingStyle, Color;
 import 'package:swlabels/swlabels.dart';
@@ -24,6 +23,7 @@ class ScreenNode extends sw.NodeWithSize {
         stepY: 16,
         title: 'Status :');
     addChild(swlStatus);
+
     /// The status of all balls will be displayed in this object.
     swlBalls = SWLabels(
         maxCount: 15,
@@ -31,12 +31,13 @@ class ScreenNode extends sw.NodeWithSize {
         stepY: 16,
         title: 'Ball positions :');
     addChild(swlBalls);
+
     /// And this object will be used as a terminal with message scrolling.
     swlTerminal = SWLabels(
         maxCount: 17,
-        position: size.width > size.height ?
-          ui.Offset(size.width - 200, 30):
-          ui.Offset(10, 370),
+        position: size.width > size.height
+            ? ui.Offset(size.width - 200, 30)
+            : ui.Offset(10, 370),
         stepY: 16,
         title: 'Terminal :');
     addChild(swlTerminal);
@@ -46,13 +47,13 @@ class ScreenNode extends sw.NodeWithSize {
   void generateBalls(int count) {
     for (int i = 0; i < count; i++) {
       balls.add(Ball(
-        x: size.width/2,
-        y: size.height/2,
-        radius: rand.nextDouble()*10 + 1,
-        dx: rand.nextDouble()*300 - 150,
-        dy: rand.nextDouble()*300 - 150,
-        color: ui.Color.fromARGB(255, rand.nextInt(205)+50, rand.nextInt(205)+50, rand.nextInt(205)+50)
-      ));
+          x: size.width / 2,
+          y: size.height / 2,
+          radius: rand.nextDouble() * 10 + 1,
+          dx: rand.nextDouble() * 300 - 150,
+          dy: rand.nextDouble() * 300 - 150,
+          color: ui.Color.fromARGB(255, rand.nextInt(205) + 50,
+              rand.nextInt(205) + 50, rand.nextInt(205) + 50)));
     }
   }
 
@@ -62,7 +63,7 @@ class ScreenNode extends sw.NodeWithSize {
     swlStatus.print('Ball count = ${balls.length}', 'count');
     swlStatus.print('$screenOrientation', 'screenOrientation');
 
-    for (int i = 0; i < balls.length; ) {
+    for (int i = 0; i < balls.length;) {
       final ball = balls[i];
       ball.x += (ball.dx * dt);
       ball.y += (ball.dy * dt);
@@ -92,8 +93,7 @@ class ScreenNode extends sw.NodeWithSize {
 
   @override
   void paint(mat.Canvas canvas) {
-    final paint = mat.Paint()
-      ..style = ui.PaintingStyle.fill;
+    final paint = mat.Paint()..style = ui.PaintingStyle.fill;
 
     for (final ball in balls) {
       paint.color = ball.color;

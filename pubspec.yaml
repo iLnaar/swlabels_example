@@ -1,7 +1,10 @@
 
 name: swlabels_example
-description: SWLabels example (Flutter)
-version: 1.0.0+1
+description: Example of working with the package [SWLabels](https://pub.dev/packages/swlabels)
+version: 1.0.4
+homepage: https://www.blogger.com/blog/posts/4498221098999236379
+repository: https://github.com/iLnaar/swlabels_example
+issue_tracker: https://github.com/iLnaar/swlabels_example/issues
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -9,9 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  spritewidget:
-  swlabels:
-    path: '../swlabels'
+  spritewidget: ^0.9.24
+  swlabels: ^0.0.5
 
 dev_dependencies:
   flutter_test:
