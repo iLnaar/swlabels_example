@@ -14,9 +14,9 @@ class ScreenNode extends sw.NodeWithSize {
   mat.Orientation screenOrientation;
 
   ScreenNode(ui.Size size, this.screenOrientation) : super(size) {
-    /// Initializing three objects of SWLabels.
-    ///
-    /// The general status will be displayed in this object.
+    // Initializing three objects of SWLabels.
+    //
+    // The general status will be displayed in [swlStatus].
     swlStatus = SWLabels(
         maxCount: 10,
         position: ui.Offset(10, 30),
@@ -24,7 +24,7 @@ class ScreenNode extends sw.NodeWithSize {
         title: 'Status :');
     addChild(swlStatus);
 
-    /// The status of all balls will be displayed in this object.
+    // The status of all balls will be displayed in [swlBalls].
     swlBalls = SWLabels(
         maxCount: 15,
         position: ui.Offset(10, 100),
@@ -32,7 +32,7 @@ class ScreenNode extends sw.NodeWithSize {
         title: 'Ball positions :');
     addChild(swlBalls);
 
-    /// And this object will be used as a terminal with message scrolling.
+    // And [swlTerminal] object will be used as a terminal with message scrolling.
     swlTerminal = SWLabels(
         maxCount: 17,
         position: size.width > size.height
@@ -99,11 +99,6 @@ class ScreenNode extends sw.NodeWithSize {
       paint.color = ball.color;
       canvas.drawCircle(mat.Offset(ball.x, ball.y), ball.radius, paint);
     }
-
-    //canvas.drawRect(mat.Rect.fromLTWH(1, 1, size.width-2, size.height-2), paint);
-    //super.paint(canvas);
-    //final center = mat.Offset(circleCenter.dx + ballPos.x, circleCenter.dy + ballPos.y);
-    //canvas.drawCircle(center, ballRadius, mat.Paint()..color = mat.Color.fromARGB(255, 255, 255, 255));
   }
 
   void delete() {
